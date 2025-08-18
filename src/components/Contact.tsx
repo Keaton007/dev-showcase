@@ -63,7 +63,7 @@ const Contact = () => {
     return () => observer.disconnect();
   }, [isDarkMode]);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, cardRef: React.RefObject<HTMLDivElement | null>, setCardStyle: React.Dispatch<React.SetStateAction<{}>>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, cardRef: React.RefObject<HTMLDivElement | null>, setCardStyle: React.Dispatch<React.SetStateAction<React.CSSProperties>>) => {
     if (!cardRef.current) return;
     
     const rect = cardRef.current.getBoundingClientRect();
@@ -82,7 +82,7 @@ const Contact = () => {
     });
   };
 
-  const handleMouseLeave = (setCardStyle: React.Dispatch<React.SetStateAction<{}>>) => {
+  const handleMouseLeave = (setCardStyle: React.Dispatch<React.SetStateAction<React.CSSProperties>>) => {
     setCardStyle({
       transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)',
       transition: 'transform 0.5s ease-out'

@@ -11,13 +11,10 @@ const RESUME_URL = '/resume.pdf'; // Update with your actual resume link
 const LandingOverlay = () => {
   const [hidden, setHidden] = useState(false);
   const [slidingUp, setSlidingUp] = useState(false);
-  const [theme, setTheme] = useState(typeof window !== 'undefined' && document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-
-  // Listen for theme changes
+  // Listen for theme changes (keeping for future use)
   useEffect(() => {
     const observer = new MutationObserver(() => {
-      const isDark = document.documentElement.classList.contains('dark');
-      setTheme(isDark ? 'dark' : 'light');
+      // Theme change detection ready for future features
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     return () => observer.disconnect();
