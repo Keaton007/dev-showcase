@@ -1,8 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --text-light: #1e293b;
+  --text-dark: #FCFFFF;
+  --accent-light: #10b981;
+  --accent-dark: #99E1D9;
+  --text-color: #000000;
+  --subheading-color: #3b82f6;
+}
+
+.dark {
+  color: var(--text-dark);
 }
 
 @theme inline {
@@ -14,13 +23,67 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-light);
+  position: relative;
+  min-height: 100vh;
+  font-family: 'Inter', 'Poppins', ui-sans-serif, system-ui, Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+  transition: color 5s;
+}
+
+/* Ensure all content is above the lava lamp effect */
+main, nav, section, div, header, footer {
+  position: relative;
+  z-index: 1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+/* Universal color transition for all elements and pseudo-elements */
+*, *::before, *::after {
+  transition:
+    color 5s,
+    background 5s,
+    background-color 5s,
+    border-color 5s,
+    box-shadow 5s,
+    text-shadow 5s,
+    fill 5s,
+    stroke 5s;
+}
+
+html, body {
+  transition: background 2s, background-color 2s, color 0.7s, border-color 0.7s, box-shadow 0.7s, fill 0.7s;
+}
+*
+{
+  transition: background 2s, background-color 2s, color 0.7s, border-color 0.7s, box-shadow 0.7s, fill 0.7s;
+}
+
+/* Utility for glassmorphism cards */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.12);
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Place dark mode background override at the end for highest specificity */
+html.dark, body.dark, .dark {
+  background: #202C39 !important;
 }
