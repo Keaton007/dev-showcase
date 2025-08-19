@@ -107,8 +107,8 @@ const Contact = () => {
     <section id="contact" className={styles.section}>
       <div className={styles.container}>
         <div className={styles.textCenter}>
-          <h2 className={styles.heading}>Let's Connect</h2>
-          <p className={styles.paragraph}>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
+          <h2 className={styles.heading}>Let&apos;s Connect</h2>
+          <p className={styles.paragraph}>I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
         </div>
         
         <motion.div className={styles.grid} variants={staggerContainer} initial="initial" animate="animate">
@@ -130,7 +130,7 @@ const Contact = () => {
             />
             
             <h3 className={styles.cardHeading}>Schedule a Meeting</h3>
-            <p className={styles.cardDescription}>View my availability and schedule a meeting directly through the calendar. I'll receive a notification and add it to my schedule.</p>
+            <p className={styles.cardDescription}>View my availability and schedule a meeting directly through the calendar. I&apos;ll receive a notification and add it to my schedule.</p>
             <div className={styles.status}><span>Available for meetings</span></div>
           </motion.div>
           <motion.div 
