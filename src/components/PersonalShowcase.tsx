@@ -18,32 +18,32 @@ import styles from '../styles/PersonalShowcase.module.css';
 const projects = [
   {
     id: 1,
-    title: "AI-Powered Task Manager",
-    description: "A smart task management application that uses AI to prioritize and organize your tasks based on deadlines, importance, and your work patterns.",
-    technologies: ["React", "Node.js", "OpenAI", "MongoDB"],
-    image: "/projects/task-manager.jpg",
-    github: "https://github.com/yourusername/task-manager",
-    live: "https://task-manager-demo.com",
+    title: "Coding Flashcards",
+    description: "An interactive flashcard application designed to help developers learn and memorize programming concepts, algorithms, and syntax across multiple languages.",
+    technologies: ["React", "TypeScript", "Node.js", "MongoDB"],
+    image: "/projects/coding-flashcards.jpg",
+    github: "https://github.com/Keaton007/coding-flashcards",
+    live: "#",
     featured: true
   },
   {
     id: 2,
-    title: "Real-time Chat Application",
-    description: "A modern chat application with real-time messaging, file sharing, and video call capabilities. Built with WebRTC and WebSocket technologies.",
-    technologies: ["Next.js", "Socket.io", "WebRTC", "TailwindCSS"],
-    image: "/projects/chat-app.jpg",
-    github: "https://github.com/yourusername/chat-app",
-    live: "https://chat-app-demo.com",
+    title: "Scuba Planner",
+    description: "A comprehensive dive planning application that helps scuba divers plan their dives, track dive logs, and manage equipment. Features dive site information and safety calculations.",
+    technologies: ["Next.js", "React", "PostgreSQL", "TailwindCSS"],
+    image: "/projects/scuba-planner.jpg",
+    github: "https://github.com/Keaton007/scuba-planner",
+    live: "#",
     featured: true
   },
   {
     id: 3,
-    title: "E-commerce Platform",
-    description: "A full-featured e-commerce platform with product management, shopping cart, payment processing, and order tracking.",
-    technologies: ["React", "Node.js", "Stripe", "PostgreSQL"],
-    image: "/projects/ecommerce.jpg",
-    github: "https://github.com/yourusername/ecommerce",
-    live: "https://ecommerce-demo.com",
+    title: "AI Profile Chat Bot",
+    description: "An intelligent chatbot that creates personalized AI profiles based on user interactions. Features real-time conversation analysis and adaptive personality development.",
+    technologies: ["React", "OpenAI", "WebSocket", "Node.js"],
+    image: "/projects/ai-chatbot.jpg",
+    github: "https://github.com/Keaton007/ai-profile-chatbot",
+    live: "#",
     featured: true
   }
 ];
@@ -194,14 +194,14 @@ const PersonalShowcase = () => {
             ))}
           </div>
           <div className={styles.projectLinks}>
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className={styles.projectLink}>
+            <span className={styles.projectLinkDisabled}>
               <FaGithub className={styles.linkIcon} />
               <span>Code</span>
-            </a>
-            <a href={project.live} target="_blank" rel="noopener noreferrer" className={styles.projectLinkDemo}>
+            </span>
+            <span className={styles.projectLinkDemoDisabled}>
               <FaExternalLinkAlt className={styles.linkDemoIcon} />
               <span>Live Demo</span>
-            </a>
+            </span>
           </div>
         </div>
       ))}

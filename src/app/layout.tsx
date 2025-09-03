@@ -3,7 +3,7 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import dynamic from 'next/dynamic';
 import ThemeToggle from '../components/ThemeToggle';
-import LandingOverlay from '../components/LandingOverlay';
+
 
 const Nav = dynamic(() => import('../components/Nav'), {
   loading: () => <div>Loading...</div>
@@ -15,8 +15,8 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Keaton's Portfolio",
-  description: "Full-stack developer portfolio showcasing projects and skills",
+  title: "Keaton's Dev Showcase",
+  description: "Full-stack developer showcase featuring projects and skills",
 };
 
 export default function RootLayout({
@@ -29,7 +29,6 @@ export default function RootLayout({
       <body>
         <ThemeToggle />
         <Nav />
-        <LandingOverlay />
         {children}
       </body>
     </html>

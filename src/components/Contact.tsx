@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Calendar from './Calendar';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaEnvelope, FaFacebook, FaInstagram } from 'react-icons/fa';
 import styles from '../styles/ContactSection.module.css';
 
 const Contact = () => {
@@ -154,9 +154,8 @@ const Contact = () => {
             <p className={styles.cardDescription}>Feel free to reach out through any of these channels:</p>
             <ul className={styles.linksList}>
               <li><a href="mailto:keatonjonesy@gmail.com" className={styles.link}><FaEnvelope className={styles.linkIcon} />keatonjonesy@gmail.com</a></li>
-              <li><a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className={styles.link}><FaGithub className={styles.linkIcon} />GitHub</a></li>
-              <li><a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className={styles.link}><FaLinkedin className={styles.linkIcon} />LinkedIn</a></li>
-              <li><a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className={styles.link}><FaTwitter className={styles.linkIcon} />Twitter</a></li>
+              <li><a href="https://www.facebook.com/keatonjonesy" target="_blank" rel="noopener noreferrer" className={styles.link}><FaFacebook className={styles.linkIcon} />Facebook</a></li>
+              <li><a href="https://www.instagram.com/keats_09/" target="_blank" rel="noopener noreferrer" className={styles.link}><FaInstagram className={styles.linkIcon} />Instagram</a></li>
             </ul>
           </motion.div>
         </motion.div>
