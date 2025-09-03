@@ -4,14 +4,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import {
-  FaReact, FaNodeJs, FaPython, FaDocker,
+  FaReact, FaNodeJs, FaDocker,
   FaDatabase, FaVuejs, FaGithub as FaGithubIcon, FaBitbucket,
+  FaHtml5, FaCss3Alt, FaJs
 } from 'react-icons/fa';
 import {
   SiTypescript, SiNextdotjs, SiTailwindcss, SiMongodb,
-  SiPostgresql, SiMysql, SiGraphql, SiExpress, SiNestjs, SiPostman,
-  SiInsomnia, SiSwagger, SiJest, SiCypress,
-  SiSelenium, SiKubernetes
+  SiPostgresql, SiMysql, SiGraphql, SiNestjs, SiPostman,
+  SiInsomnia, SiSwagger, SiJest, SiKubernetes, SiJenkins
 } from 'react-icons/si';
 import styles from '../styles/PersonalShowcase.module.css';
 
@@ -63,35 +63,50 @@ const certificates = [
     issuer: "University of Utah",
     date: "2023",
     description: "Complete full-stack web development certification including frontend, backend, database design, and deployment strategies.",
-    image: "/certificates/fullstack.jpg"
+    image: "/certificates/fullstack.jpg",
+    certificateUrl: "/Boot Camp Certificate.pdf"
   }
 ];
 
 const techIcons = [
+  // Frontend Development
   { icon: <FaReact />, name: 'React', color: '#61DAFB' },
   { icon: <SiNextdotjs />, name: 'Next.js', color: '#000000' },
   { icon: <FaVuejs />, name: 'Vue.js', color: '#4FC08D' },
   { icon: <SiTypescript />, name: 'TypeScript', color: '#3178C6' },
+  { icon: <FaJs />, name: 'JavaScript', color: '#F7DF1E' },
+  { icon: <FaHtml5 />, name: 'HTML', color: '#E34F26' },
+  { icon: <FaCss3Alt />, name: 'CSS', color: '#1572B6' },
   { icon: <SiTailwindcss />, name: 'Tailwind CSS', color: '#06B6D4' },
+  
+  // Backend Development
   { icon: <FaNodeJs />, name: 'Node.js', color: '#339933' },
-  { icon: <SiExpress />, name: 'Express', color: '#000000' },
   { icon: <SiNestjs />, name: 'NestJS', color: '#E0234E' },
-  { icon: <FaPython />, name: 'Python', color: '#3776AB' },
-  { icon: <FaDatabase />, name: 'SQLDatabase', color: '#336791' },
+  { icon: <FaDatabase />, name: 'C#', color: '#239120' },
+  { icon: <FaDatabase />, name: '.NET', color: '#512BD4' },
+  { icon: <SiGraphql />, name: 'GraphQL', color: '#E10098' },
+  
+  // Database & Storage
   { icon: <SiMongodb />, name: 'MongoDB', color: '#47A248' },
   { icon: <SiPostgresql />, name: 'PostgreSQL', color: '#336791' },
   { icon: <SiMysql />, name: 'MySQL', color: '#4479A1' },
+  { icon: <FaDatabase />, name: 'SQL', color: '#336791' },
+  
+  // DevOps & Tools
   { icon: <FaDocker />, name: 'Docker', color: '#2496ED' },
   { icon: <SiKubernetes />, name: 'Kubernetes', color: '#326CE5' },
+  { icon: <SiJenkins />, name: 'Jenkins', color: '#D24939' },
   { icon: <FaGithubIcon />, name: 'GitHub', color: '#181717' },
   { icon: <FaBitbucket />, name: 'Bitbucket', color: '#0052CC' },
+  
+  // Testing & Quality
+  { icon: <SiJest />, name: 'Jest', color: '#C21325' },
   { icon: <SiPostman />, name: 'Postman', color: '#FF6C37' },
   { icon: <SiInsomnia />, name: 'Insomnia', color: '#4000BF' },
+  
+  // Other Technologies
+  { icon: <FaDatabase />, name: 'Kafka', color: '#231F20' },
   { icon: <SiSwagger />, name: 'Swagger', color: '#85EA2D' },
-  { icon: <SiJest />, name: 'Jest', color: '#C21325' },
-  { icon: <SiCypress />, name: 'Cypress', color: '#17202C' },
-  { icon: <SiSelenium />, name: 'Selenium', color: '#43B02A' },
-  { icon: <SiGraphql />, name: 'GraphQL', color: '#E10098' },
 ];
 
 const tabs = [
@@ -220,6 +235,11 @@ const PersonalShowcase = () => {
           <div className={styles.certificateContent}>
             <h3 className={styles.certificateTitle}>{cert.title}</h3>
             <p className={styles.certificateIssuer}>{cert.issuer}</p>
+            {cert.certificateUrl && (
+              <a href={cert.certificateUrl} target="_blank" rel="noopener noreferrer" className={styles.certificateLink}>
+                View Certificate
+              </a>
+            )}
             <p className={styles.certificateDate}>{cert.date}</p>
             <p className={styles.certificateDescription}>{cert.description}</p>
           </div>
@@ -260,23 +280,27 @@ const PersonalShowcase = () => {
         <div className={styles.skillsList}>
           <div className={styles.skillCategory}>
             <div className={styles.skillMain}>Frontend Development</div>
-            <div className={styles.skillSub}>React, Next.js, Vue.js, TypeScript, Tailwind CSS</div>
+            <div className={styles.skillSub}>React, Next.js, Vue.js, TypeScript, JavaScript, HTML, CSS, Tailwind CSS</div>
           </div>
           <div className={styles.skillCategory}>
             <div className={styles.skillMain}>Backend Development</div>
-            <div className={styles.skillSub}>Node.js, Express, NestJS, Python, REST APIs</div>
+            <div className={styles.skillSub}>Node.js, NestJS, C#, .NET, REST APIs, GraphQL</div>
           </div>
           <div className={styles.skillCategory}>
             <div className={styles.skillMain}>Database & Storage</div>
-            <div className={styles.skillSub}>MongoDB, PostgreSQL, MySQL, Redis</div>
+            <div className={styles.skillSub}>MongoDB, PostgreSQL, MySQL, SQL, Redis</div>
           </div>
           <div className={styles.skillCategory}>
             <div className={styles.skillMain}>DevOps & Tools</div>
-            <div className={styles.skillSub}>Docker, Kubernetes, GitHub, CI/CD</div>
+            <div className={styles.skillSub}>Docker, Kubernetes, Jenkins, GitHub, Bitbucket, CI/CD</div>
           </div>
           <div className={styles.skillCategory}>
             <div className={styles.skillMain}>Testing & Quality</div>
-            <div className={styles.skillSub}>Jest, Cypress, Selenium, API Testing</div>
+            <div className={styles.skillSub}>Jest, Postman, Insomnia, API Testing</div>
+          </div>
+          <div className={styles.skillCategory}>
+            <div className={styles.skillMain}>Other Technologies</div>
+            <div className={styles.skillSub}>Kafka, Swagger, Containerized Services</div>
           </div>
         </div>
       </div>
