@@ -1,6 +1,6 @@
 // AI Persona Configuration
 // This file contains personal information for the AI chat agent
-// It's excluded from GitHub via .gitignore to keep your personal data private
+// It&apos;s excluded from GitHub via .gitignore to keep your personal data private
 
 export const AI_PERSONA = {
   // Basic Information
@@ -89,9 +89,9 @@ export const AI_PERSONA = {
   
   // Additional Personal Information
   additionalInfo: `
-    I'm always excited to connect with other developers and discuss new opportunities. 
-    Whether you're looking to collaborate on a project, have questions about my work, 
-    or just want to chat about technology, I'd love to hear from you!
+    I&apos;m always excited to connect with other developers and discuss new opportunities. 
+    Whether you&apos;re looking to collaborate on a project, have questions about my work, 
+    or just want to chat about technology, I&apos;d love to hear from you!
   `,
   
   // AI Behavior Instructions
