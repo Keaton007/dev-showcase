@@ -6,11 +6,36 @@
   --text-dark: #FCFFFF;
   --accent-light: #10b981;
   --accent-dark: #99E1D9;
-  --text-color: #000000;
+  --text-color: #1e293b;
   --subheading-color: #3b82f6;
+  --background-light: #ffffff;
+  --background-dark: #202C39;
 }
 
-.dark {
+/* Light mode (default) */
+html {
+  background: var(--background-light);
+  color: var(--text-light);
+}
+
+body {
+  background: var(--background-light);
+  color: var(--text-light);
+  position: relative;
+  min-height: 100vh;
+  font-family: 'Inter', 'Poppins', ui-sans-serif, system-ui, Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+  transition: background 5s ease, color 5s ease;
+}
+
+/* Dark mode */
+html.dark {
+  background: var(--background-dark);
+  color: var(--text-dark);
+}
+
+html.dark body {
+  background: var(--background-dark);
   color: var(--text-dark);
 }
 
@@ -19,21 +44,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground: #ededed;
-  }
-}
-
-body {
-  color: var(--text-light);
-  position: relative;
-  min-height: 100vh;
-  font-family: 'Inter', 'Poppins', ui-sans-serif, system-ui, Arial, Helvetica, sans-serif;
-  scroll-behavior: smooth;
-  transition: color 5s;
 }
 
 /* Ensure all content is above the lava lamp effect */
@@ -47,31 +57,17 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
 /* Universal color transition for all elements and pseudo-elements */
 *, *::before, *::after {
   transition:
-    color 5s,
-    background 5s,
-    background-color 5s,
-    border-color 5s,
-    box-shadow 5s,
-    text-shadow 5s,
-    fill 5s,
-    stroke 5s;
-}
-
-html, body {
-  transition: background 2s, background-color 2s, color 0.7s, border-color 0.7s, box-shadow 0.7s, fill 0.7s;
-}
-*
-{
-  transition: background 2s, background-color 2s, color 0.7s, border-color 0.7s, box-shadow 0.7s, fill 0.7s;
+    color 5s ease,
+    background 5s ease,
+    background-color 5s ease,
+    border-color 5s ease,
+    box-shadow 5s ease,
+    text-shadow 5s ease,
+    fill 5s ease,
+    stroke 5s ease;
 }
 
 /* Utility for glassmorphism cards */
@@ -83,7 +79,46 @@ html, body {
   border: 1px solid rgba(255,255,255,0.12);
 }
 
-/* Place dark mode background override at the end for highest specificity */
-html.dark, body.dark, .dark {
-  background: #202C39 !important;
+/* Mobile-specific theme handling */
+@media (max-width: 768px) {
+  html {
+    background: var(--background-light);
+    color: var(--text-light);
+  }
+  
+  html.dark {
+    background: var(--background-dark);
+    color: var(--text-dark);
+  }
+  
+  body {
+    background: var(--background-light);
+    color: var(--text-light);
+  }
+  
+  html.dark body {
+    background: var(--background-dark);
+    color: var(--text-dark);
+  }
+}
+
+/* Custom breakpoint for theme toggle at 1300px */
+@media (max-width: 1300px) {
+  .theme-toggle-desktop {
+    display: none !important;
+  }
+  
+  .theme-toggle-mobile {
+    display: block !important;
+  }
+}
+
+@media (min-width: 1301px) {
+  .theme-toggle-desktop {
+    display: block !important;
+  }
+  
+  .theme-toggle-mobile {
+    display: none !important;
+  }
 }

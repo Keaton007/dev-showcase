@@ -436,7 +436,7 @@
   backdrop-filter: blur(10px);
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease, background 5s ease, border-color 5s ease;
+  transition: all 0.3s ease, background 5s ease, border-color 5s ease, transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   min-height: 80px;
 }
@@ -490,10 +490,16 @@
   border-radius: 1rem;
   padding: 2rem;
   border: 1px solid #fecaca;
-  transition: all 5s ease;
+  transition: background 5s ease, border-color 5s ease, box-shadow 5s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   position: relative;
   overflow: hidden;
+  /* Explicitly prevent any movement or transform effects */
+  transform: none !important;
+}
+
+.skillsCard:hover {
+  transform: none !important;
 }
 
 :global(.dark) .skillsCard {
@@ -549,7 +555,8 @@
   background: rgba(59, 130, 246, 0.05);
   border-radius: 0.75rem;
   border-left: 4px solid #3b82f6;
-  transition: all 5s ease;
+  transition: all 0.3s ease, background 5s ease, transform 0.3s ease, box-shadow 0.3s ease, border-left-width 0.3s ease;
+  cursor: pointer;
 }
 
 :global(.dark) .skillCategory {
@@ -564,6 +571,61 @@
 
 :global(.dark) .skillCategory:hover {
   background: rgba(96, 165, 250, 0.1);
+}
+
+/* New hover styles for skill categories */
+.skillCategoryHovered {
+  background: rgba(59, 130, 246, 0.15) !important;
+  transform: translateX(8px) !important;
+  border-left-width: 6px !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+:global(.dark) .skillCategoryHovered {
+  background: rgba(96, 165, 250, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2) !important;
+}
+
+/* Icon highlighting styles */
+.iconItemHighlighted {
+  background: rgba(59, 130, 246, 0.2) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Dehighlighting transition - 2 seconds */
+.iconItem:not(.iconItemHighlighted) {
+  transition: all 2s ease !important;
+}
+
+:global(.dark) .iconItemHighlighted {
+  background: rgba(96, 165, 250, 0.2) !important;
+  border-color: rgba(96, 165, 250, 0.5) !important;
+  box-shadow: 0 4px 16px rgba(96, 165, 250, 0.3) !important;
+}
+
+.iconItemHighlighted .iconWrapper {
+  transform: scale(1.2) !important;
+  filter: drop-shadow(0 0 8px currentColor) !important;
+}
+
+.iconItemHighlighted .iconName {
+  color: #3b82f6 !important;
+  font-weight: 600 !important;
+}
+
+:global(.dark) .iconItemHighlighted .iconName {
+  color: #60a5fa !important;
+}
+
+/* Fade non-highlighted icons when a category is hovered */
+.iconsGrid:has(.iconItemHighlighted) .iconItem:not(.iconItemHighlighted) {
+  opacity: 0.4;
+  transform: scale(0.95);
+  transition: all 2s ease;
 }
 
 .skillMain {
@@ -642,5 +704,30 @@
   
   .certificateImage {
     align-self: center;
+  }
+  
+  /* Mobile theme fixes */
+  .section {
+    background: var(--background-light);
+  }
+  
+  :global(.dark) .section {
+    background: var(--background-dark);
+  }
+  
+  .heading {
+    color: var(--text-color);
+  }
+  
+  :global(.dark) .heading {
+    color: var(--text-dark);
+  }
+  
+  .paragraph {
+    color: var(--text-color);
+  }
+  
+  :global(.dark) .paragraph {
+    color: var(--text-dark);
   }
 } 

@@ -4,7 +4,7 @@ import styles from '../styles/HeroSection.module.css';
 
 const GITHUB_URL = 'https://github.com/Keaton007';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/keaton-jones-577640236/';
-const RESUME_URL = '/Keaton_Jones_Resume';
+const RESUME_URL = '/Keaton_Jones_Resume.pdf';
 
 const Hero = () => {
   return (

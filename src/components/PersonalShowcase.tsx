@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import {
@@ -76,7 +76,6 @@ const techIcons = [
   { icon: <SiTypescript />, name: 'TypeScript', color: '#3178C6' },
   { icon: <FaJs />, name: 'JavaScript', color: '#F7DF1E' },
   { icon: <FaHtml5 />, name: 'HTML', color: '#E34F26' },
-  { icon: <FaCss3Alt />, name: 'CSS', color: '#1572B6' },
   { icon: <SiTailwindcss />, name: 'Tailwind CSS', color: '#06B6D4' },
   
   // Backend Development
@@ -117,36 +116,27 @@ const tabs = [
 
 const PersonalShowcase = () => {
   const [activeTab, setActiveTab] = useState('projects');
-  const [skillsCardStyle, setSkillsCardStyle] = useState<React.CSSProperties>({});
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [overlayOpacity, setOverlayOpacity] = useState(0);
-  const skillsCardRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, cardRef: React.RefObject<HTMLDivElement | null>, setCardStyle: React.Dispatch<React.SetStateAction<React.CSSProperties>>) => {
-    if (!cardRef.current) return;
-    
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = -(y - centerY) / 10;
-    const rotateY = -(centerX - x) / 10;
-    
-    setCardStyle({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`,
-      transition: 'transform 0.1s ease-out'
-    });
+  // Define which icons belong to which category
+  const categoryIconMap = {
+    'Frontend Development': [0, 1, 2, 3, 4, 5, 6], // React, Next.js, Vue.js, TypeScript, JavaScript, HTML, Tailwind CSS
+    'Backend Development': [7, 8, 9, 10, 11], // Node.js, NestJS, C#, .NET, GraphQL
+    'Database & Storage': [12, 13, 14, 15], // MongoDB, PostgreSQL, MySQL, SQL
+    'DevOps & Tools': [16, 17, 18, 19, 20], // Docker, Kubernetes, Jenkins, GitHub, Bitbucket
+    'Testing & Quality': [21, 22, 23], // Jest, Postman, Insomnia
+    'Other Technologies': [24, 25] // Kafka, Swagger
   };
 
-  const handleMouseLeave = (setCardStyle: React.Dispatch<React.SetStateAction<React.CSSProperties>>) => {
-    setCardStyle({
-      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)',
-      transition: 'transform 0.5s ease-out'
-    });
+  const handleCategoryHover = (category: string) => {
+    setHoveredCategory(category);
+  };
+
+  const handleCategoryLeave = () => {
+    setHoveredCategory(null);
   };
 
   useEffect(() => {
@@ -251,21 +241,24 @@ const PersonalShowcase = () => {
   const renderSkills = () => (
     <div className={styles.skillsContainer}>
       <div className={styles.iconsGrid}>
-        {techIcons.map((tech, index) => (
-          <div key={index} className={styles.iconItem} title={tech.name}>
-            <div className={styles.iconWrapper} style={{ color: tech.color }}>
-              {tech.icon}
+        {techIcons.map((tech, index) => {
+          const isHighlighted = hoveredCategory && categoryIconMap[hoveredCategory as keyof typeof categoryIconMap]?.includes(index);
+          return (
+            <div 
+              key={index} 
+              className={`${styles.iconItem} ${isHighlighted ? styles.iconItemHighlighted : ''}`} 
+              title={tech.name}
+            >
+              <div className={styles.iconWrapper} style={{ color: tech.color }}>
+                {tech.icon}
+              </div>
+              <span className={styles.iconName}>{tech.name}</span>
             </div>
-            <span className={styles.iconName}>{tech.name}</span>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <div 
-        ref={skillsCardRef}
         className={styles.skillsCard}
-        onMouseMove={(e) => handleMouseMove(e, skillsCardRef, setSkillsCardStyle)}
-        onMouseLeave={() => handleMouseLeave(setSkillsCardStyle)}
-        style={skillsCardStyle}
       >
         {/* React-controlled overlay for smooth transitions */}
         <div 
@@ -278,27 +271,51 @@ const PersonalShowcase = () => {
         
         <h3 className={styles.skillsHeading}>Skills & Focus</h3>
         <div className={styles.skillsList}>
-          <div className={styles.skillCategory}>
+          <div 
+            className={`${styles.skillCategory} ${hoveredCategory === 'Frontend Development' ? styles.skillCategoryHovered : ''}`}
+            onMouseEnter={() => handleCategoryHover('Frontend Development')}
+            onMouseLeave={handleCategoryLeave}
+          >
             <div className={styles.skillMain}>Frontend Development</div>
-            <div className={styles.skillSub}>React, Next.js, Vue.js, TypeScript, JavaScript, HTML, CSS, Tailwind CSS</div>
+            <div className={styles.skillSub}>React, Next.js, Vue.js, TypeScript, JavaScript, HTML, Tailwind CSS</div>
           </div>
-          <div className={styles.skillCategory}>
+          <div 
+            className={`${styles.skillCategory} ${hoveredCategory === 'Backend Development' ? styles.skillCategoryHovered : ''}`}
+            onMouseEnter={() => handleCategoryHover('Backend Development')}
+            onMouseLeave={handleCategoryLeave}
+          >
             <div className={styles.skillMain}>Backend Development</div>
             <div className={styles.skillSub}>Node.js, NestJS, C#, .NET, REST APIs, GraphQL</div>
           </div>
-          <div className={styles.skillCategory}>
+          <div 
+            className={`${styles.skillCategory} ${hoveredCategory === 'Database & Storage' ? styles.skillCategoryHovered : ''}`}
+            onMouseEnter={() => handleCategoryHover('Database & Storage')}
+            onMouseLeave={handleCategoryLeave}
+          >
             <div className={styles.skillMain}>Database & Storage</div>
-            <div className={styles.skillSub}>MongoDB, PostgreSQL, MySQL, SQL, Redis</div>
+            <div className={styles.skillSub}>MongoDB, PostgreSQL, MySQL, SQL</div>
           </div>
-          <div className={styles.skillCategory}>
+          <div 
+            className={`${styles.skillCategory} ${hoveredCategory === 'DevOps & Tools' ? styles.skillCategoryHovered : ''}`}
+            onMouseEnter={() => handleCategoryHover('DevOps & Tools')}
+            onMouseLeave={handleCategoryLeave}
+          >
             <div className={styles.skillMain}>DevOps & Tools</div>
             <div className={styles.skillSub}>Docker, Kubernetes, Jenkins, GitHub, Bitbucket, CI/CD</div>
           </div>
-          <div className={styles.skillCategory}>
+          <div 
+            className={`${styles.skillCategory} ${hoveredCategory === 'Testing & Quality' ? styles.skillCategoryHovered : ''}`}
+            onMouseEnter={() => handleCategoryHover('Testing & Quality')}
+            onMouseLeave={handleCategoryLeave}
+          >
             <div className={styles.skillMain}>Testing & Quality</div>
             <div className={styles.skillSub}>Jest, Postman, Insomnia, API Testing</div>
           </div>
-          <div className={styles.skillCategory}>
+          <div 
+            className={`${styles.skillCategory} ${hoveredCategory === 'Other Technologies' ? styles.skillCategoryHovered : ''}`}
+            onMouseEnter={() => handleCategoryHover('Other Technologies')}
+            onMouseLeave={handleCategoryLeave}
+          >
             <div className={styles.skillMain}>Other Technologies</div>
             <div className={styles.skillSub}>Kafka, Swagger, Containerized Services</div>
           </div>
