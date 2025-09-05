@@ -1,7 +1,8 @@
 // AI Persona Configuration
 // This file contains personal information for the AI chat agent
-// It&apos;s excluded from GitHub via .gitignore to keep your personal data private
+// Currently commented out for production deployment
 
+/*
 export const AI_PERSONA = {
   // Basic Information
   name: "Keaton Jones",
@@ -119,4 +120,12 @@ ${AI_PERSONA.background}
 ${AI_PERSONA.communicationStyle}
 
 Remember to be helpful, professional, and enthusiastic about technology. Keep responses concise but informative.`;
+}
+*/
+
+// Placeholder exports to prevent import errors
+export const AI_PERSONA = {};
+
+export function generateSystemPrompt(): string {
+  return "AI persona is currently disabled.";
 }

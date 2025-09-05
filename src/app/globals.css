@@ -102,23 +102,36 @@ a {
   }
 }
 
+/* Theme toggle base styles */
+.theme-toggle-desktop {
+  display: flex;
+}
+
+.theme-toggle-mobile {
+  display: none;
+}
+
 /* Custom breakpoint for theme toggle at 1300px */
 @media (max-width: 1300px) {
   .theme-toggle-desktop {
     display: none !important;
+    visibility: hidden !important;
   }
   
   .theme-toggle-mobile {
-    display: block !important;
+    display: flex !important;
+    visibility: visible !important;
   }
 }
 
 @media (min-width: 1301px) {
   .theme-toggle-desktop {
-    display: block !important;
+    display: flex !important;
+    visibility: visible !important;
   }
   
   .theme-toggle-mobile {
     display: none !important;
+    visibility: hidden !important;
   }
 }

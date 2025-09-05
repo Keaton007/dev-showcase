@@ -71,7 +71,7 @@ export default function ThemeToggle() {
               width: knobSize,
               height: knobSize,
               borderRadius: "50%",
-              background: dark ? "#00F0FF" : "#fffbe9",
+              background: dark ? "#00F0FF" : "#FF9900",
               boxShadow: dark
                 ? "0 2px 8px #00F0FF99"
                 : "0 2px 8px #ef444455",
