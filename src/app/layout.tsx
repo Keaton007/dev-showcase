@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import dynamic from 'next/dynamic';
 import ThemeToggle from '../components/ThemeToggle';
+import ChatBubble from '../components/ChatBubble';
 
 
 const Nav = dynamic(() => import('../components/Nav'), {
@@ -30,6 +31,7 @@ export default function RootLayout({
         <ThemeToggle />
         <Nav />
         {children}
+        <ChatBubble />
       </body>
     </html>
   );

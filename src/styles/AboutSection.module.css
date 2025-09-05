@@ -142,15 +142,42 @@
 @media (max-width: 600px) {
   .heading {
     font-size: 1.5rem;
+    color: var(--text-color);
   }
   
   .paragraph {
     font-size: 1rem;
+    color: var(--text-color);
   }
   
   .leftColumn,
   .rightColumn {
     padding: 1.25rem;
+  }
+  
+  /* Mobile theme fixes */
+  .section {
+    background: var(--background-light);
+  }
+  
+  :global(.dark) .section {
+    background: var(--background-dark);
+  }
+  
+  .heading {
+    color: var(--text-color);
+  }
+  
+  :global(.dark) .heading {
+    color: var(--text-dark);
+  }
+  
+  .paragraph {
+    color: var(--text-color);
+  }
+  
+  :global(.dark) .paragraph {
+    color: var(--text-dark);
   }
 }
 
