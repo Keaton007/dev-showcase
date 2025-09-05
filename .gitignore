@@ -34,7 +34,7 @@ yarn-error.log*
 .env*
 
 # AI persona configuration (contains personal information)
-src/config/ai-persona.ts
+# src/config/ai-persona.ts
 
 # vercel
 .vercel

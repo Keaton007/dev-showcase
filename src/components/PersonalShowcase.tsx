@@ -6,7 +6,7 @@ import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import {
   FaReact, FaNodeJs, FaDocker,
   FaDatabase, FaVuejs, FaGithub as FaGithubIcon, FaBitbucket,
-  FaHtml5, FaCss3Alt, FaJs
+  FaHtml5, FaJs
 } from 'react-icons/fa';
 import {
   SiTypescript, SiNextdotjs, SiTailwindcss, SiMongodb,
