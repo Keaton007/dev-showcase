@@ -2,6 +2,15 @@
   min-height: 100vh;
   padding: 5rem 0;
   position: relative;
+  background: #f0ede6;
+  transition: background 5s ease;
+  mask: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.dark .section,
+:global(.dark) .section {
+  background: #1e2a5e !important;
 }
 .container {
   max-width: 1200px;
@@ -33,14 +42,20 @@
 }
 .card {
   position: relative;
-  background: #EAF4F4;
   border-radius: 16px;
   padding: 2rem;
-  border: 1px solid #fecaca;
-  box-shadow: 0 4px 32px 0 rgba(239, 68, 68, 0.15);
-  transition: border 5s, box-shadow 5s, background 2s;
   cursor: pointer;
   overflow: hidden;
+}
+
+.clickableCard {
+  cursor: pointer;
+  transition: all 5s ease;
+}
+
+.clickableCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px 0 rgba(239, 68, 68, 0.25);
 }
 
 /* React-controlled overlay for smooth crossfade */
@@ -100,21 +115,17 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: #FF4500;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 2;
-  transition: color 5s;
 }
 .cardDescription {
   font-size: 1.125rem;
-  color: #1e293b;
   line-height: 1.7;
   margin-bottom: 1.5rem;
   opacity: 0.8;
   position: relative;
   z-index: 2;
-  transition: color 5s;
 }
 .status {
   display: flex;
@@ -137,10 +148,8 @@
   z-index: 2;
 }
 .link {
-  color: #0369a1;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s;
   font-size: 1.125rem;
   display: flex;
   align-items: center;
@@ -208,17 +217,42 @@
   color: #fff !important;
 }
 
+/* Ensure smooth transitions in both directions */
+.card {
+  background: #EAF4F4 !important;
+  border: 1px solid #fecaca !important;
+  box-shadow: 0 4px 32px 0 rgba(239, 68, 68, 0.15) !important;
+  transition: all 5s ease !important;
+}
+
+.card .cardHeading {
+  color: #FF4500 !important;
+  transition: color 5s ease !important;
+}
+
+.card .cardDescription {
+  color: #1e293b !important;
+  transition: color 5s ease !important;
+}
+
+.card .link {
+  color: #0369a1 !important;
+  transition: color 5s ease !important;
+}
+
 :global(.dark) .cardHeading,
 :global(.dark) .cardDescription,
 :global(.dark) .link {
   color: #fff !important;
+  transition: color 5s ease !important;
 }
 
 :global(.dark) .card {
-  background: rgba(32,44,57,0.92);
-  border: 1.5px solid #99E1D9;
-  color: #FCFFFF;
-  box-shadow: 0 0 24px 0 #99E1D955;
+  background: rgba(32,44,57,0.92) !important;
+  border: 1.5px solid #99E1D9 !important;
+  color: #FCFFFF !important;
+  box-shadow: 0 0 24px 0 #99E1D955 !important;
+  transition: all 5s ease !important;
 }
 
 :global(.dark) .calendarWrapper {

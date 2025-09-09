@@ -51,12 +51,33 @@
   text-align: left;
   letter-spacing: -0.5px;
 }
-:global(.dark) .subheading {
-  background: linear-gradient(90deg, #00F0FF 0%, #4169E1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+
+.animatedTitle {
+  position: relative;
+  display: inline-block;
+  min-height: 1.2em; /* Prevent layout shift */
+  transition: color 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(20px); /* Exit down */
+  transition: all 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Remove the gradient rule that was affecting the "a" */
+
+/* Ensure animated title colors work in dark mode */
+:global(.dark) .animatedTitle {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
 }
 
 .imageBlock {
@@ -83,13 +104,32 @@
 
 .keatonGradient {
   display: inline-block;
+  color: #000000; /* Black in light mode */
+  transition: color 5s ease;
 }
 :global(.dark) .keatonGradient {
-  background: linear-gradient(90deg, #00F0FF 0%, #4169E1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+  color: #ffffff; /* White in dark mode */
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  background-clip: unset;
+}
+
+.staticText {
+  display: inline-block;
+  color: #000000 !important; /* Black in light mode */
+  transition: color 5s ease;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+}
+:global(.dark) .staticText {
+  color: #ffffff !important; /* White in dark mode */
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
 }
 
 .socialButtons {
