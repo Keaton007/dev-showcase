@@ -109,13 +109,13 @@ const techIcons = [
 ];
 
 const tabs = [
-  { id: 'projects', label: 'Projects' },
+  { id: 'skills', label: 'My Skills' },
   { id: 'certificates', label: 'Certificates' },
-  { id: 'skills', label: 'My Skills' }
+  { id: 'projects', label: 'Project Ideas' }
 ];
 
 const PersonalShowcase = () => {
-  const [activeTab, setActiveTab] = useState('projects');
+  const [activeTab, setActiveTab] = useState('skills');
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -249,11 +249,11 @@ const PersonalShowcase = () => {
               className={`${styles.iconItem} ${isHighlighted ? styles.iconItemHighlighted : ''}`} 
               title={tech.name}
             >
-              <div className={styles.iconWrapper} style={{ color: tech.color }}>
-                {tech.icon}
-              </div>
-              <span className={styles.iconName}>{tech.name}</span>
+            <div className={styles.iconWrapper} style={{ color: tech.color }}>
+              {tech.icon}
             </div>
+            <span className={styles.iconName}>{tech.name}</span>
+          </div>
           );
         })}
       </div>
@@ -356,9 +356,9 @@ const PersonalShowcase = () => {
               transition={{ duration: 0.2 }}
               className={styles.tabPanel}
             >
-              {activeTab === 'projects' && renderProjects()}
-              {activeTab === 'certificates' && renderCertificates()}
               {activeTab === 'skills' && renderSkills()}
+              {activeTab === 'certificates' && renderCertificates()}
+              {activeTab === 'projects' && renderProjects()}
             </motion.div>
           </AnimatePresence>
         </div>

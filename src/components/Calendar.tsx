@@ -1,58 +1,52 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { format, startOfMonth, endOfMonth, isSameMonth, isToday, isSameDay, addMonths, subMonths } from 'date-fns';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Sample events data
-const sampleEvents = [
-  {
-    id: 1,
-    title: 'Team Meeting',
-    date: new Date(2024, 2, 15),
-    time: '10:00 AM',
-    duration: 60,
-    type: 'meeting'
-  },
-  {
-    id: 2,
-    title: 'Project Review',
-    date: new Date(2024, 2, 15),
-    time: '2:00 PM',
-    duration: 90,
-    type: 'review'
-  },
-  {
-    id: 3,
-    title: 'Client Call',
-    date: new Date(2024, 2, 20),
-    time: '11:00 AM',
-    duration: 30,
-    type: 'call'
-  },
-  {
-    id: 4,
-    title: 'Code Review',
-    date: new Date(2024, 2, 22),
-    time: '3:00 PM',
-    duration: 45,
-    type: 'review'
-  }
-];
+// Helper function to calculate duration between start and end time
+const calculateDuration = (startTime: string, endTime: string): number => {
+  if (!startTime || !endTime) return 60; // Default 1 hour
+  
+  const start = new Date(`2000-01-01T${startTime}`);
+  const end = new Date(`2000-01-01T${endTime}`);
+  const diffMs = end.getTime() - start.getTime();
+  return Math.round(diffMs / (1000 * 60)); // Convert to minutes
+};
 
-const Calendar = () => {
-  // Set to current date (August 12th, 2025)
-  const [currentDate, setCurrentDate] = useState(new Date(2025, 7, 12)); // Month is 0-indexed, so 7 = August
+interface CalendarProps {
+  events: Array<{
+    id: number;
+    title: string;
+    date: Date;
+    time: string;
+    duration: number;
+    type: string;
+    name: string;
+    phone: string;
+    email: string;
+    startTime: string;
+    endTime: string;
+  }>;
+  onDateClick: (date: Date) => void;
+}
+
+const Calendar = ({ events, onDateClick }: CalendarProps) => {
+  // Set to current date
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const [clickedDate, setClickedDate] = useState<Date | null>(null);
-  const [newEvent, setNewEvent] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    startTime: '',
-    endTime: ''
-  });
+
+  // Auto-update calendar to current month
+  useEffect(() => {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+    
+    // Only update if we're not already on the current month
+    if (currentDate.getMonth() !== currentMonth || currentDate.getFullYear() !== currentYear) {
+      setCurrentDate(now);
+    }
+  }, []);
 
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
@@ -92,7 +86,7 @@ const Calendar = () => {
   };
 
   const getEventsForDate = (date: Date) => {
-    return sampleEvents.filter(event => isSameDay(event.date, date));
+    return events.filter(event => isSameDay(event.date, date));
   };
 
   const getEventTypeColor = (type: string) => {
@@ -110,19 +104,15 @@ const Calendar = () => {
 
   return (
     <div className="bg-white rounded-2xl shadow-xl border border-slate-100 relative">
-      <div className="p-6 bg-gradient-to-r from-slate-50 to-white border-b border-slate-100 relative">
-        {/* Grey overlay when modal is open */}
-        {showModal && (
-          <div className="absolute inset-0 bg-slate-200 bg-opacity-60 z-10 rounded-t-2xl" />
-        )}
-        <div className="flex items-center justify-between mb-6 relative z-20">
+      <div className="p-6 bg-gradient-to-r from-slate-50 to-white border-b border-slate-100">
+        <div className="flex items-center justify-between mb-6">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={prevMonth}
-            className="p-2 rounded-lg hover:bg-slate-100 transition-colors"
+            className="p-2 rounded-lg hover:bg-slate-100 transition-colors duration-[5000ms]"
           >
-            <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-slate-600 dark:text-slate-400 transition-colors duration-[5000ms]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </motion.button>
@@ -132,7 +122,7 @@ const Calendar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="text-2xl font-semibold text-slate-800"
+            className="text-2xl font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-[5000ms]"
           >
             {format(currentDate, 'MMMM yyyy')}
           </motion.h2>
@@ -141,9 +131,9 @@ const Calendar = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={nextMonth}
-            className="p-2 rounded-lg hover:bg-slate-100 transition-colors"
+            className="p-2 rounded-lg hover:bg-slate-100 transition-colors duration-[5000ms]"
           >
-            <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-slate-600 dark:text-slate-400 transition-colors duration-[5000ms]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </motion.button>
@@ -151,7 +141,7 @@ const Calendar = () => {
 
         <div className="grid grid-cols-7 gap-1 mb-2 relative z-20">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-            <div key={day} className="text-center py-2 text-sm font-medium text-slate-500">
+            <div key={day} className="text-center py-2 text-sm font-medium text-slate-500 dark:text-slate-400 transition-colors duration-[5000ms]">
               {day}
             </div>
           ))}
@@ -159,11 +149,7 @@ const Calendar = () => {
       </div>
 
       <div className="p-6 relative">
-        {/* Grey overlay when modal is open */}
-        {showModal && (
-          <div className="absolute inset-0 bg-slate-200 bg-opacity-60 z-10 rounded-lg" />
-        )}
-        <div className="grid grid-cols-7 gap-1 relative z-20">
+        <div className="grid grid-cols-7 gap-1">
           {days.map((day: Date) => {
             const events = getEventsForDate(day);
             const isCurrentMonth = isSameMonth(day, currentDate);
@@ -178,15 +164,7 @@ const Calendar = () => {
                 onClick={() => {
                   if (isCurrentMonth) { // Only allow clicking on current month days
                     setSelectedDate(day);
-                    setClickedDate(day);
-                    setShowModal(true);
-                    setNewEvent({
-                      name: '',
-                      phone: '',
-                      email: '',
-                      startTime: '',
-                      endTime: ''
-                    });
+                    onDateClick(day);
                   }
                 }}
                 className={`
@@ -195,18 +173,18 @@ const Calendar = () => {
                   ${isCurrentDay ? 'ring-2 ring-orange-500 dark:ring-cyan-400 bg-orange-50 dark:bg-cyan-50' : ''}
                   ${isSelected ? 'ring-2 ring-blue-400 bg-blue-100' : ''}
                   ${!isCurrentMonth ? 'opacity-50' : 'hover:bg-slate-50'}
-                  transition-all duration-200
+                  transition-all duration-[5000ms]
                 `}
               >
                 <div className="flex justify-between items-start mb-1">
                   <span className={`
-                    text-sm font-medium
-                    ${isCurrentDay ? 'text-orange-600 dark:text-cyan-400' : 'text-slate-700'}
+                    text-sm font-medium transition-colors duration-[5000ms]
+                    ${isCurrentDay ? 'text-orange-600 dark:text-cyan-400' : 'text-slate-700 dark:text-slate-300'}
                   `}>
                     {format(day, 'd')}
                   </span>
                   {events.length > 0 && (
-                    <span className="text-xs text-slate-500">
+                    <span className="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-[5000ms]">
                       {events.length} {events.length === 1 ? 'event' : 'events'}
                     </span>
                   )}
@@ -225,7 +203,7 @@ const Calendar = () => {
                           ${getEventTypeColor(event.type)}
                         `}
                       >
-                        {event.title}
+                        {event.title} ({event.startTime}-{event.endTime})
                       </motion.div>
                     ))}
                   </AnimatePresence>
@@ -241,14 +219,9 @@ const Calendar = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="p-6 bg-slate-50 border-t border-slate-100 relative"
+          className="p-6 bg-slate-50 border-t border-slate-100"
         >
-          {/* Grey overlay when modal is open */}
-          {showModal && (
-            <div className="absolute inset-0 bg-slate-200 bg-opacity-60 z-10 rounded-b-2xl" />
-          )}
-          <div className="relative z-20">
-          <h3 className="text-lg font-semibold text-slate-800 mb-4">
+          <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4 transition-colors duration-[5000ms]">
             Events for {format(selectedDate, 'MMMM d, yyyy')}
           </h3>
           <div className="space-y-3">
@@ -264,143 +237,26 @@ const Calendar = () => {
               >
                 <div className="font-medium">{event.title}</div>
                 <div className="text-sm opacity-75">
-                  {event.time} ({event.duration} min)
+                  {event.startTime} - {event.endTime} ({event.duration} min)
                 </div>
+                {event.phone && (
+                  <div className="text-xs opacity-60">
+                    Phone: {event.phone}
+                  </div>
+                )}
+                {event.email && (
+                  <div className="text-xs opacity-60">
+                    Email: {event.email}
+                  </div>
+                )}
               </motion.div>
             ))}
             {getEventsForDate(selectedDate).length === 0 && (
-              <p className="text-slate-500 text-sm">No events scheduled for this day.</p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm transition-colors duration-[5000ms]">No events scheduled for this day.</p>
             )}
           </div>
-        </div>
         </motion.div>
       )}
-
-      {/* Add Event Modal */}
-      <AnimatePresence>
-        {showModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[9999] p-4 backdrop-blur-sm"
-            onClick={() => setShowModal(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md border border-slate-200"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-xl font-semibold text-slate-800">
-                  Add Event for {clickedDate ? format(clickedDate, 'MMMM d, yyyy') : ''}
-                </h3>
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="text-slate-400 hover:text-slate-600 transition-colors"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              <form className="space-y-4" onSubmit={(e) => {
-                e.preventDefault();
-                // Handle form submission here
-                console.log('New event:', newEvent);
-                setShowModal(false);
-              }}>
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={newEvent.name}
-                    onChange={(e) => setNewEvent({...newEvent, name: e.target.value})}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                    placeholder="Enter name"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    value={newEvent.phone}
-                    onChange={(e) => setNewEvent({...newEvent, phone: e.target.value})}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                    placeholder="Enter phone number"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    value={newEvent.email}
-                    onChange={(e) => setNewEvent({...newEvent, email: e.target.value})}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                    placeholder="Enter email"
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">
-                      Start Time *
-                    </label>
-                    <input
-                      type="time"
-                      required
-                      value={newEvent.startTime}
-                      onChange={(e) => setNewEvent({...newEvent, startTime: e.target.value})}
-                      className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2">
-                      End Time *
-                    </label>
-                    <input
-                      type="time"
-                      required
-                      value={newEvent.endTime}
-                      onChange={(e) => setNewEvent({...newEvent, endTime: e.target.value})}
-                      className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex gap-3 pt-4">
-                  <button
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                    className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition-colors"
-                  >
-                    Add Event
-                  </button>
-                </div>
-              </form>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 };
