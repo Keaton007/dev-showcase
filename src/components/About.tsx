@@ -1,19 +1,17 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import styles from '../styles/AboutSection.module.css';
 
 const About = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [overlayOpacity, setOverlayOpacity] = useState(0);
 
   useEffect(() => {
     // Check initial theme
     const checkTheme = () => {
       const isDark = document.documentElement.classList.contains('dark');
       setIsDarkMode(isDark);
-      setOverlayOpacity(isDark ? 1 : 0);
     };
 
     // Check on mount
@@ -23,27 +21,8 @@ const About = () => {
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          const wasDark = isDarkMode;
           const isNowDark = document.documentElement.classList.contains('dark');
-          
-          if (wasDark !== isNowDark) {
-            setIsTransitioning(true);
-            setIsDarkMode(isNowDark);
-            
-            // Smoothly animate the overlay opacity
-            if (isNowDark) {
-              // Light to dark: fade in overlay
-              setOverlayOpacity(1);
-            } else {
-              // Dark to light: fade out overlay
-              setOverlayOpacity(0);
-            }
-            
-            // Remove transitioning class after transition completes
-            setTimeout(() => {
-              setIsTransitioning(false);
-            }, 5000);
-          }
+          setIsDarkMode(isNowDark);
         }
       });
     });
@@ -54,7 +33,7 @@ const About = () => {
     });
 
     return () => observer.disconnect();
-  }, [isDarkMode]);
+  }, []);
 
   return (
     <section id="about" className={styles.section}>
@@ -77,19 +56,23 @@ const About = () => {
           
           {/* Top Right - Road Image */}
           <div className={styles.box}>
-            <img 
+            <Image 
               src="/images/roadimage.jpg" 
               alt="Journey road" 
               className={styles.sectionImage}
+              width={800}
+              height={320}
             />
           </div>
           
           {/* Bottom Left - Coding Image */}
           <div className={styles.box}>
-            <img 
+            <Image 
               src="/images/codingimage.jpg" 
               alt="Coding workspace" 
               className={styles.sectionImage}
+              width={800}
+              height={320}
             />
           </div>
           

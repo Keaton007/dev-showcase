@@ -36,13 +36,6 @@ const ResumePage = () => {
             className={styles.resumeIframe}
             title="Keaton Jones Resume"
           />
-          <div className={styles.fallbackMessage}>
-            <p>If the resume doesn't display above, you can:</p>
-            <ul>
-              <li>Click the download button above to get the Word document</li>
-              <li>Try opening the document in a new tab: <a href="/Keaton Jones Resume.docx" target="_blank" rel="noopener noreferrer">Open Resume</a></li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>
