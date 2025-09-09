@@ -4,15 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { format, startOfMonth, endOfMonth, isSameMonth, isToday, isSameDay, addMonths, subMonths } from 'date-fns';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// Helper function to calculate duration between start and end time
-const calculateDuration = (startTime: string, endTime: string): number => {
-  if (!startTime || !endTime) return 60; // Default 1 hour
-  
-  const start = new Date(`2000-01-01T${startTime}`);
-  const end = new Date(`2000-01-01T${endTime}`);
-  const diffMs = end.getTime() - start.getTime();
-  return Math.round(diffMs / (1000 * 60)); // Convert to minutes
-};
 
 interface CalendarProps {
   events: Array<{
@@ -46,7 +37,7 @@ const Calendar = ({ events, onDateClick }: CalendarProps) => {
     if (currentDate.getMonth() !== currentMonth || currentDate.getFullYear() !== currentYear) {
       setCurrentDate(now);
     }
-  }, []);
+  }, [currentDate]);
 
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);

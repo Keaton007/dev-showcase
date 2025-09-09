@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { FaGithub, FaLinkedin, FaFileAlt } from 'react-icons/fa';
 import styles from '../styles/HeroSection.module.css';
 
@@ -102,7 +103,7 @@ const Hero = () => {
     }, 5000); // Change every 4 seconds
 
     return () => clearInterval(interval);
-  }, [titles.length, currentTitle, isDarkMode, currentColor]);
+  }, [titles.length, currentTitle, isDarkMode, currentColor, darkModeColors, lightModeColors]);
 
   return (
     <section id="hero" className={styles.section}>
@@ -135,10 +136,12 @@ const Hero = () => {
           </div>
         </div>
         <div className={styles.imageBlock}>
-          <img 
+          <Image 
             src="/images/avatar.JPG" 
             alt="Keaton - Software Developer" 
             className={styles.avatarImage}
+            width={600}
+            height={450}
           />
         </div>
       </div>
